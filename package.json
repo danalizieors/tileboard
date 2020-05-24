@@ -10,11 +10,16 @@
     "scripts": {
         "format": "prettier --write .",
         "check:format": "prettier --check .",
-        "check": "npm-run-all check:*"
+        "check": "npm-run-all check:*",
+        "start:server": "ts-node-dev server/index.ts",
+        "start": "npm-run-all --parallel start:*"
     },
     "devDependencies": {
         "husky": "^4.2.5",
         "npm-run-all": "^4.1.5",
-        "prettier": "^2.0.5"
+        "prettier": "^2.0.5",
+        "ts-node": "^8.10.1",
+        "ts-node-dev": "^1.0.0-pre.44",
+        "typescript": "^3.9.3"
     }
 }
