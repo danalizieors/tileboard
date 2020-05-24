@@ -18,10 +18,18 @@
         "start:server": "ts-node-dev server/index.ts",
         "start": "npm-run-all --parallel start:*"
     },
+    "dependencies": {
+        "react": "^16.13.1",
+        "react-dom": "^16.13.1",
+        "styled-components": "^5.1.0"
+    },
     "devDependencies": {
         "@babel/core": "^7.9.6",
         "@babel/preset-react": "^7.9.4",
         "@types/jest": "^25.2.3",
+        "@types/react": "^16.9.35",
+        "@types/react-dom": "^16.9.8",
+        "@types/styled-components": "^5.1.0",
         "husky": "^4.2.5",
         "jest": "^26.0.1",
         "npm-run-all": "^4.1.5",
