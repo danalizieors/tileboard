@@ -9,6 +9,7 @@
     },
     "scripts": {
         "format": "prettier --write .",
+        "check:compile": "tsc",
         "check:format": "prettier --check .",
         "check:test": "npm run test",
         "check": "npm-run-all check:*",
