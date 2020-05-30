@@ -22,6 +22,9 @@
         "build:client": "npm-run-all --parallel build:client:*",
         "build": "npm-run-all --parallel build:*",
         "clean": "rm --recursive build",
+        "serve:client": "serve --listen 1234 build/local/client/",
+        "serve:server": "npm run start:server",
+        "serve": "npm-run-all --parallel serve:*",
         "deploy": "sh deploy.sh build/deploy/client"
     },
     "dependencies": {
@@ -41,6 +44,7 @@
         "npm-run-all": "^4.1.5",
         "parcel-bundler": "^1.12.4",
         "prettier": "^2.0.5",
+        "serve": "^11.3.1",
         "ts-jest": "^26.0.0",
         "ts-node": "^8.10.1",
         "ts-node-dev": "^1.0.0-pre.44",
