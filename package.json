@@ -22,7 +22,7 @@
         "build:client": "npm-run-all --parallel build:client:*",
         "build": "npm-run-all --parallel build:*",
         "clean": "rm --recursive build",
-        "serve:client": "serve --listen 1234 build/local/client/",
+        "serve:client": "serve --listen 1234 --no-clipboard build/local/client/",
         "serve:server": "npm run start:server",
         "serve": "npm-run-all --parallel serve:*",
         "deploy": "sh deploy.sh build/deploy/client"
