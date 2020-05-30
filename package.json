@@ -14,9 +14,15 @@
         "check:test": "npm run test",
         "check": "npm-run-all check:*",
         "test": "jest --config .jestrc.json",
-        "start:client": "parcel client/index.html",
+        "start:client": "parcel client/index.html --cache-dir build/cache --out-dir build/start/client",
         "start:server": "ts-node-dev server/index.ts",
-        "start": "npm-run-all --parallel start:*"
+        "start": "npm-run-all --parallel start:*",
+        "build:client:local": "parcel build client/index.html --cache-dir build/cache --out-dir build/local/client",
+        "build:client:deploy": "parcel build client/index.html --cache-dir build/cache --out-dir build/deploy/client --public-url /tileboard/",
+        "build:client": "npm-run-all --parallel build:client:*",
+        "build": "npm-run-all --parallel build:*",
+        "clean": "rm --recursive build",
+        "deploy": "sh deploy.sh build/deploy/client"
     },
     "dependencies": {
         "react": "^16.13.1",
