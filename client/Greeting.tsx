@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Button } from './Button'
 
 type Style = {
     color: string
@@ -15,5 +16,8 @@ type Props = {
 }
 
 export const Greeting: React.FC<Props> = ({ name }) => (
-    <Title color='palevioletred'>Hello {name}</Title>
+    <>
+        <Title color='palevioletred'>Hello {name}</Title>
+        <Button></Button>
+    </>
 )

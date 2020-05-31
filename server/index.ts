@@ -1,16 +1,19 @@
-import { adder } from './adder'
+import WebSocket from 'ws'
 
-const result = 1 + 2
+const server = new WebSocket.Server({ port: 3000 }, () =>
+    console.log('Server started!'),
+)
 
-console.log('1 + 2 = ', result)
+server.on('connection', (connection: WebSocket) => {
+    console.log('Connection established!')
 
-const randomCalculations = () => {
-    const a = Math.random() * 10
-    const b = Math.random() * 10
+    connection.on('message', (message: WebSocket.Data) => {
+        const data = JSON.parse(message as string)
+        console.log(`Received: ${JSON.stringify(data)}`)
+        connection.send(JSON.stringify({ status: 'received' }))
+    })
 
-    console.log(`${a} + ${b} = ${adder(a, b)}`)
-
-    setTimeout(randomCalculations, 1000)
-}
-
-randomCalculations()
+    connection.on('close', () => {
+        console.log('Connection closed!')
+    })
+})
