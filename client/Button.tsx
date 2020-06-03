@@ -10,13 +10,19 @@ export const Button: React.FC = () => {
         return () => unsubscribe(handler)
     }, [])
 
-    const send = () => {
-        connection.send(JSON.stringify({ hello: 'WebSocket' }))
+    const noteOn = () => {
+        connection.send(JSON.stringify({ note: [0b10010000, 64, 100] }))
+    }
+
+    const noteOff = () => {
+        connection.send(JSON.stringify({ note: [0b10000000, 64, 100] }))
     }
 
     return (
         <>
-            <div onClick={send}>send message</div>
+            <div onPointerDown={noteOn} onPointerUp={noteOff}>
+                send note
+            </div>
             <div>{state}</div>
         </>
     )
