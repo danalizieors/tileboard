@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import { usePointers } from './usePointers'
 
 const Root = styled.div({
     touchAction: 'none',
@@ -10,17 +11,12 @@ const Root = styled.div({
 export const TouchTest: React.FC = () => {
     const [pointer, setPointer] = useState<any>()
 
-    const onEvent = (event: React.PointerEvent<HTMLDivElement>) => {
+    const onEvent = usePointers((event: any) =>
         setPointer({
             ...pointer,
-            [event.type]: {
-                id: event.pointerId,
-                x: event.clientX,
-                y: event.clientY,
-                buttons: event.buttons,
-            },
-        })
-    }
+            [event.id]: event,
+        }),
+    )
 
     return (
         <Root
@@ -28,7 +24,6 @@ export const TouchTest: React.FC = () => {
             onPointerDown={onEvent}
             onPointerMove={onEvent}
             onPointerUp={onEvent}
-            onPointerCancel={onEvent}
             onPointerLeave={onEvent}
         >
             <pre>
