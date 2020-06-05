@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Greeting } from './Greeting'
+import { Page } from './Page'
 
 const root = document.getElementById('root')
-ReactDOM.render(<Greeting name='tileboard' />, root)
+ReactDOM.render(<Page />, root)
