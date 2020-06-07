@@ -1,4 +1,4 @@
-import { none, values } from 'ramda'
+import { equals, none, values } from 'ramda'
 import { useState } from 'react'
 
 type Key = string | number
@@ -6,7 +6,7 @@ type Key = string | number
 const findFirstGap = (list: number[]) => {
     let index = 0
     while (true) {
-        const isGap = none((x) => x === index, list)
+        const isGap = none(equals(index), list)
         if (isGap) return index
         index++
     }
