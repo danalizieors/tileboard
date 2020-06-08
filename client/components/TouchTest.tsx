@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { usePointers } from '../hooks/usePointers'
+import { usePointersContext } from '../contexts/Pointers'
 
 const Root = styled.div({
     touchAction: 'none',
@@ -9,16 +9,10 @@ const Root = styled.div({
 })
 
 export const TouchTest: React.FC = () => {
-    const [pointers, onEvent] = usePointers()
+    const pointers = usePointersContext()
 
     return (
-        <Root
-            onPointerEnter={onEvent}
-            onPointerDown={onEvent}
-            onPointerMove={onEvent}
-            onPointerUp={onEvent}
-            onPointerLeave={onEvent}
-        >
+        <Root>
             <pre>
                 <code>
                     TouchTest:

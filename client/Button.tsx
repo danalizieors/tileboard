@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { connection, subscribe, unsubscribe } from './connection'
-import { usePointers } from './hooks/usePointers'
+import { usePointersContext } from './contexts/Pointers'
 
 export const Button: React.FC = () => {
-    const [pointers, onEvent] = usePointers()
+    const pointers = usePointersContext()
 
     const [state, setState] = useState()
     useEffect(() => {
@@ -22,15 +22,7 @@ export const Button: React.FC = () => {
 
     return (
         <>
-            <div
-                onPointerEnter={onEvent}
-                onPointerDown={onEvent}
-                onPointerMove={onEvent}
-                onPointerUp={onEvent}
-                onPointerLeave={onEvent}
-            >
-                send note
-            </div>
+            <div>send note</div>
             <div>{state}</div>
         </>
     )
