@@ -1,13 +1,12 @@
-import { PointerEvent } from 'react'
+import { PointerEvent, useState } from 'react'
 import { transformPointerEvent } from '../helpers/transformPointerEvent'
 import { Action, Pointer } from '../types/Pointer'
 import { useBoundedMapper } from './useBoundedMapper'
 
-type Signature = (
-    onChange: (event: Pointer) => void,
-) => (event: PointerEvent) => void
+type Signature = () => [Record<number, Pointer>, (event: PointerEvent) => void]
 
-export const usePointers: Signature = (onChange) => {
+export const usePointers: Signature = () => {
+    const [pointers, setPointers] = useState<Record<number, Pointer>>({})
     const { insert, find, remove } = useBoundedMapper()
 
     const mapId = (id: number, { type }: Action) => {
@@ -25,10 +24,15 @@ export const usePointers: Signature = (onChange) => {
         id: mapId(event.id, event.action),
     })
 
-    return (event) => {
+    const onEvent = (event: PointerEvent) => {
         const transformed = transformPointerEvent(event)
         const remapped = remapId(transformed)
 
-        onChange(remapped)
+        setPointers({
+            ...pointers,
+            [remapped.id]: remapped,
+        })
     }
+
+    return [pointers, onEvent]
 }
