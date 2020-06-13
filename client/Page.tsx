@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button } from './Button'
+import { CameraTest } from './components/CameraTest'
 import { Fullscreen } from './components/Fullscreen'
 import { TouchTest } from './components/TouchTest'
 import { withPointersProvider } from './contexts/Pointers'
@@ -13,6 +14,9 @@ export const Page: React.FC = () => {
             <Fullscreen>
                 <PointersProvider onClick={() => console.log('a')}>
                     <Button></Button>
+                </PointersProvider>
+                <PointersProvider>
+                    <CameraTest />
                 </PointersProvider>
                 <PointersProvider>
                     <TouchTest />

@@ -1,11 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
 import { usePointersContext } from '../contexts/Pointers'
+import { colors } from '../guidelines/colors'
 
 const Root = styled.div({
     touchAction: 'none',
     margin: '50px',
-    background: 'red',
+    background: colors.red,
 })
 
 export const TouchTest: React.FC = () => {
