@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { usePointersContext } from '../contexts/Pointers'
 import { colors } from '../guidelines/colors'
-import { applyTransform } from '../helpers/applyTransform'
+import { transformationToString } from '../helpers/transforms'
+import { useCamera } from '../hooks/useCamera'
 
 const Root = styled.div({
     touchAction: 'none',
@@ -12,49 +13,26 @@ const Root = styled.div({
 
 export const CameraTest: React.FC = () => {
     const pointers = usePointersContext()
-    const [state, setState] = useState({
-        location: [0, 0] as Cartesian,
-        rotation: 0,
-        scaling: 1,
-    })
+    const pointer = pointers[0]
+    const [transformation, transform] = useCamera(pointer?.position)
 
     useEffect(() => {
-        const pointer = pointers[0]
         if (pointer?.buttons[2]) {
-            setState(applyTransform({ move: pointer.movement }, state))
+            transform({ move: pointer.movement })
         }
-    }, [pointers])
+    }, [pointer])
 
     const onZoom = (event: any) => {
-        const pointer = pointers[0]
         const factor = -Math.sign(event.deltaY) * 0.1
 
         if (pointer?.buttons[0]) {
-            setState(
-                applyTransform(
-                    {
-                        rotate: factor,
-                    },
-                    state,
-                    pointer.position,
-                ),
-            )
+            transform({ rotate: factor })
         } else {
-            setState(
-                applyTransform(
-                    {
-                        scale: 1 + factor,
-                    },
-                    state,
-                    pointer.position,
-                ),
-            )
+            transform({ scale: 1 + factor })
         }
     }
 
-    const transformString = `translate(${state.location.join(',')}) rotate(${
-        (state.rotation / Math.PI) * 180
-    }) scale(${state.scaling})`
+    const transformString = transformationToString(transformation)
 
     return (
         <Root>

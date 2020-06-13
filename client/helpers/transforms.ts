@@ -1,13 +1,13 @@
 import { add, dot, mul, sub } from '@tensorflow/tfjs'
 import { reduce } from 'ramda'
 
-type Transformation = {
+export type Transformation = {
     location: Cartesian
     rotation: number
     scaling: number
 }
 
-type Transform = Partial<{
+export type Transform = Partial<{
     move: Cartesian
     rotate: number
     scale: number
@@ -24,12 +24,12 @@ const rotationMatrix = (radians: number) => {
 
 export const applyTransform: (
     transform: Transform,
+    origin: Cartesian,
     transformation: Transformation,
-    origin?: Cartesian,
 ) => Transformation = (
     { move = [0, 0], rotate = 0, scale = 1 },
+    origin,
     { location, rotation, scaling },
-    origin = [0, 0],
 ) => {
     const difference = sub(origin, location)
     const moveFromScale = sub(origin, mul(difference, scale))
@@ -47,4 +47,17 @@ export const applyTransform: (
         rotation: rotation + rotate,
         scaling: scaling * scale,
     }
+}
+
+export const toDegrees = (radians: number) => (radians * 180) / Math.PI
+
+export const transformationToString = ({
+    location,
+    rotation,
+    scaling,
+}: Transformation) => {
+    const locationString = location.join(',')
+    const degrees = toDegrees(rotation)
+
+    return `translate(${locationString}) rotate(${degrees}) scale(${scaling})`
 }
