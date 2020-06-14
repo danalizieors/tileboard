@@ -1,5 +1,5 @@
 import { PointerEvent, useState } from 'react'
-import { transformPointerEvent } from '../helpers/transformPointerEvent'
+import { processPointerEvent } from '../helpers/processPointerEvent'
 import { Action, Pointer } from '../types/Pointer'
 import { useBoundedMapper } from './useBoundedMapper'
 
@@ -25,8 +25,8 @@ export const usePointers: Signature = () => {
     })
 
     const onEvent = (event: PointerEvent) => {
-        const transformed = transformPointerEvent(event)
-        const remapped = remapId(transformed)
+        const processed = processPointerEvent(event)
+        const remapped = remapId(processed)
 
         setPointers({
             ...pointers,

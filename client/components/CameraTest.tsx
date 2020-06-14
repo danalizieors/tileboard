@@ -17,7 +17,7 @@ export const CameraTest: React.FC = () => {
     const [transformation, transform] = useCamera(pointer?.position)
 
     useEffect(() => {
-        if (pointer?.buttons[2]) {
+        if (pointer?.buttons[0]) {
             transform({ move: pointer.movement })
         }
     }, [pointer])

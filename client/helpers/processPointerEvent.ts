@@ -1,7 +1,11 @@
+import { div } from '@tensorflow/tfjs-core'
 import { any, curry, equals, map, range } from 'ramda'
 import { PointerEvent } from 'react'
 import { Action, Buttons, Device, devices, Pointer } from '../types/Pointer'
 import { is1 } from './bitwise'
+
+const toDevicePixels = (location: Cartesian) =>
+    div(location, window.devicePixelRatio).arraySync() as Cartesian
 
 const getDevice = (pointerType: string) =>
     any(equals(pointerType), devices) ? (pointerType as Device) : 'unknown'
@@ -48,18 +52,18 @@ const getRelativePosition: (event: PointerEvent) => Cartesian = (event) => {
 const getButtons = (buttons: number) =>
     map(curry(is1)(buttons), range(0, 5)) as Buttons
 
-export const transformPointerEvent: (event: PointerEvent) => Pointer = (
+export const processPointerEvent: (event: PointerEvent) => Pointer = (
     event,
 ) => ({
     id: event.pointerId,
     device: getDevice(event.pointerType),
     action: getAction(event),
 
-    position: getRelativePosition(event),
-    movement: [event.movementX, event.movementY],
+    position: toDevicePixels(getRelativePosition(event)),
+    movement: toDevicePixels([event.movementX, event.movementY]),
     buttons: getButtons(event.buttons),
 
-    dimensions: [event.width, event.height],
+    dimensions: toDevicePixels([event.width, event.height]),
     pressure: event.pressure,
     tangential: event.tangentialPressure,
     tilt: [event.tiltX, event.tiltY],
