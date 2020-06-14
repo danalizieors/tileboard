@@ -1,4 +1,4 @@
-import { add, dot, mul, sub } from '@tensorflow/tfjs'
+import { add, dot, mul, sub } from '@tensorflow/tfjs-core'
 import { reduce } from 'ramda'
 
 export type Transformation = {

@@ -28,7 +28,8 @@
         "deploy": "sh deploy.sh build/deploy/client"
     },
     "dependencies": {
-        "@tensorflow/tfjs": "^2.0.0",
+        "@tensorflow/tfjs-backend-cpu": "2.0.0",
+        "@tensorflow/tfjs-core": "2.0.0",
         "midi": "^1.0.0",
         "ramda": "^0.27.0",
         "react": "^16.13.1",
