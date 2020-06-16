@@ -4,11 +4,12 @@ import { usePointersContext } from '../contexts/Pointers'
 import { colors } from '../guidelines/colors'
 import { transformationToString } from '../helpers/transforms'
 import { useCamera } from '../hooks/useCamera'
+import { Background } from './patterns/Background'
+import { GridPattern } from './patterns/GridPattern'
 
 const Root = styled.div({
     touchAction: 'none',
     height: '500px',
-    background: colors.blue,
 })
 
 export const CameraTest: React.FC = () => {
@@ -37,7 +38,13 @@ export const CameraTest: React.FC = () => {
     return (
         <Root>
             <svg width='100%' height='100%' onWheel={onZoom}>
+                <Background color={colors.dark[3]} />
+                <GridPattern
+                    transformation={transformation}
+                    color={colors.dark[2]}
+                />
                 <g transform={transformString}>
+                    <rect x='-101' y='-101' width='2' height='2' fill='red' />
                     <rect x='0' y='0' width='10' height='10' fill='red' />
                     <rect x='0' y='20' width='10' height='10' fill='red' />
                     <rect x='20' y='0' width='10' height='10' fill='red' />
